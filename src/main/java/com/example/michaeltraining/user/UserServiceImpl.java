@@ -22,4 +22,11 @@ public class UserServiceImpl implements UserService {
         final User user = userMapper.toEntity(dto);
         userRepository.save(user);
     }
+
+    @Override
+    public void deleteUser(Long id) {
+
+    }
+
+
 }
