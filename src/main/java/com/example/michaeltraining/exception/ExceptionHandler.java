@@ -1,17 +1,19 @@
 package com.example.michaeltraining.exception;
 
-import javassist.NotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
+import java.util.NoSuchElementException;
+
 @ControllerAdvice
 public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler
-    public ResponseEntity<ErrorApi> handleException(NotFoundException exception) {
-        ErrorApi userError = new ErrorApi();
-        userError.setInfo(exception.getMessage());
-        return new ResponseEntity<>(userError, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorApi> handleException(NoSuchElementException exception) {
+        ErrorApi message = new ErrorApi();
+        message.setInfo(exception.getMessage());
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 
     }
 }
