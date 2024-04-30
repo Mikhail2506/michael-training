@@ -9,8 +9,9 @@ import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ExceptionHandler {
+
     @org.springframework.web.bind.annotation.ExceptionHandler
-    public ResponseEntity<ErrorApi> handleException(NoSuchElementException exception) {
+    public ResponseEntity<ErrorApi> handleException(NotFoundException exception) {
         ErrorApi message = new ErrorApi();
         message.setInfo(exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
