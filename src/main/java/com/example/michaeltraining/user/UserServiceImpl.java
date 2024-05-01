@@ -1,5 +1,6 @@
 package com.example.michaeltraining.user;
 
+import com.example.michaeltraining.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
+
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
+
+        }
         userRepository.deleteById(id);
     }
 
