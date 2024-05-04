@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
     public void updateUser(Long id, UserDTO dto) {
         User user = userMapper.toEntity(dto);
 
-            if (userRepository.existsById(id)) {
-                user.setId(id);
-                userRepository.save(user);
-            } else {
-                throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
+        if (userRepository.existsById(id)) {
+            user.setId(id);
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
 
         }
     }
