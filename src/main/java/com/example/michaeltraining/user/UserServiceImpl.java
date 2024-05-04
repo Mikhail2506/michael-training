@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
         }
-        userRepository.deleteById(id);
     }
 
 }
