@@ -20,7 +20,7 @@ public class UserController {
         userService.saveUser(dto);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }
