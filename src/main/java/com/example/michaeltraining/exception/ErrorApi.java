@@ -12,3 +12,4 @@ public class ErrorApi {
     private String info;
 
 }
+
