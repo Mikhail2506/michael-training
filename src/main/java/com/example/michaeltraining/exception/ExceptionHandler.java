@@ -14,6 +14,5 @@ public class ExceptionHandler {
         ErrorApi message = new ErrorApi();
         message.setInfo(exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-
     }
 }

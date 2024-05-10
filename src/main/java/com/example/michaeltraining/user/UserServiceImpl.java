@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } else {
             throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
-
         }
     }
 
@@ -47,5 +46,4 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
         }
     }
-
 }
