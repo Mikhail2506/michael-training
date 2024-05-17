@@ -49,6 +49,5 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.name").value("Mikhail"))
                 .andExpect(jsonPath("$.surname").value("Toukach"))
                 .andExpect(jsonPath("$.age").value(41L));
-
     }
 }
