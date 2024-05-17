@@ -1,5 +1,7 @@
 package com.example.michaeltraining.user;
 
+import com.example.michaeltraining.exception.NotFoundException;
+
 public interface UserService {
     UserDTO getUser(Long id);
 
@@ -7,5 +9,5 @@ public interface UserService {
 
     void updateUser(Long id, UserDTO dto);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id) throws RuntimeException;
 }
