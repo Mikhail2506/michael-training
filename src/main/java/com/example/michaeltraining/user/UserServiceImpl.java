@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) throws RuntimeException{
+    public void deleteUser(Long id){
         try {
             userRepository.deleteById(id);
         } catch (RuntimeException e){
