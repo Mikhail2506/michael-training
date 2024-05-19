@@ -37,4 +37,13 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
         }
     }
+
+    @Override
+    public void deleteUser(Long id){
+        try {
+            userRepository.deleteById(id);
+        } catch (RuntimeException e){
+            throw new NotFoundException("User with id = " + id + " doesn't exist in Database");
+        }
+    }
 }
