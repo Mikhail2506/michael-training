@@ -1,40 +1,28 @@
 package com.example.michaeltraining.user;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest(UserController.class)
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest
 public class UserControllerTest {
 
-    @Mock
+    @MockBean
     private UserService userService;
 
-    @InjectMocks
-    private UserController userController;
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-
-        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-
-    }
-
     @Test
-    void shouldReturnUserAndStatus200OkWhenReceivesUserId() throws Exception {
+    void getUserMethodTestPositiveCase() throws Exception {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setName("Mikhail");
@@ -43,11 +31,32 @@ public class UserControllerTest {
 
         when(userService.getUser(1L)).thenReturn(userDTO);
 
-        mockMvc.perform(
+        this.mockMvc.perform(
                         get("/api/v1/users/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Mikhail"))
                 .andExpect(jsonPath("$.surname").value("Toukach"))
                 .andExpect(jsonPath("$.age").value(41L));
+
+    }
+
+    @Test
+    @DisplayName("негативный ответ при отсутствиии пользователя с таким Id")
+    void getUserMethodTestNegativeCase() throws Exception {
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName("Mikhail");
+        userDTO.setSurname("Toukach");
+        userDTO.setAge(41L);
+
+        when(userService.getUser(1L)).thenReturn(userDTO);
+
+        this.mockMvc.perform(
+                        get("/api/v1/users/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Mikhail"))
+                .andExpect(jsonPath("$.surname").value("Toukach"))
+                .andExpect(jsonPath("$.age").value(41L));
+
     }
 }
