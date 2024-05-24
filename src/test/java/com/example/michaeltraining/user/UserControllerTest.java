@@ -1,5 +1,6 @@
 package com.example.michaeltraining.user;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,41 +22,33 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void getUserMethodTestPositiveCase() throws Exception {
+    private UserDTO miklDTO;
+    private UserDTO olgaDTO;
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setName("Mikhail");
-        userDTO.setSurname("Toukach");
-        userDTO.setAge(41L);
+    @BeforeEach
+    void createDTOForTestingUserControllerMethods() {
+        miklDTO = new UserDTO();
+        miklDTO.setName("Mikl");
+        miklDTO.setSurname("Tkach");
+        miklDTO.setAge(41L);
 
-        when(userService.getUser(1L)).thenReturn(userDTO);
-
-        this.mockMvc.perform(
-                        get("/api/v1/users/{id}", 1))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Mikhail"))
-                .andExpect(jsonPath("$.surname").value("Toukach"))
-                .andExpect(jsonPath("$.age").value(41L));
-
+        olgaDTO = new UserDTO();
+        olgaDTO.setName("Olga");
+        olgaDTO.setSurname("Tkach");
+        olgaDTO.setAge(39L);
     }
 
     @Test
-    @DisplayName("негативный ответ при отсутствиии пользователя с таким Id")
-    void getUserMethodTestNegativeCase() throws Exception {
+    @DisplayName("Should return positive answer when expected and created data for user are equals")
+    void getUserMethodTestPositiveCase() throws Exception {
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setName("Mikhail");
-        userDTO.setSurname("Toukach");
-        userDTO.setAge(41L);
-
-        when(userService.getUser(1L)).thenReturn(userDTO);
+        when(userService.getUser(7L)).thenReturn(miklDTO);
 
         this.mockMvc.perform(
-                        get("/api/v1/users/{id}", 1))
+                        get("/api/v1/users/{id}", 7))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Mikhail"))
-                .andExpect(jsonPath("$.surname").value("Toukach"))
+                .andExpect(jsonPath("$.name").value("Mikl"))
+                .andExpect(jsonPath("$.surname").value("Tkach"))
                 .andExpect(jsonPath("$.age").value(41L));
 
     }
